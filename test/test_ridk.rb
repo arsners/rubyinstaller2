@@ -52,6 +52,11 @@ module RidkTests
   def test_ridk_version
     skip unless File.directory?("C:/msys64")
 
+    puts "PATH-dirs:"
+    ENV['PATH'].split(";").each{|d| p [d, Dir[d.gsub("\\","/")+"/*"]] }
+    puts "PATH: #{ENV['PATH']}"
+    p run_capture_output("echo %PATH%")
+
     out = run_capture_output "ridk version"
     y = YAML.load(out)
 
