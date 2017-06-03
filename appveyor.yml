@@ -31,8 +31,6 @@ test_script:
   - echo %RUBYOPT%
   - dir "c:/ri2-ruby"
   - dir "c:/ri2-ruby/bin"
-  - ridk enable
-  - ridk install 1
   # Install dependent gems
   - gem install bundler
   - bundle install
