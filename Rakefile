@@ -25,7 +25,7 @@ end
 
 libtest = "test/helper/libtest.dll"
 file libtest => libtest.sub(".dll", ".c") do |t|
-  RubyInstaller::Build.with_msys_apps_enabled do
+  RubyInstaller::Build.msys2_installation.with_msys_apps_enabled do
     sh RbConfig::CONFIG['CC'], "-shared", t.prerequisites.first, "-o", t.name
   end
 end
