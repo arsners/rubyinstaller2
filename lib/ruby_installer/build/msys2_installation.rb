@@ -106,7 +106,7 @@ module Build # Use for: Build, Runtime
       path.gsub("/", "\\")
     end
 
-    private def ruby_bin_dir
+    def ruby_bin_dir
       require "rbconfig"
       backslachs( File.join(RbConfig::TOPDIR, "bin") )
     end
