@@ -7,9 +7,12 @@ module RidkTests
   include Helper::Msys
 
   def setup
+    @old_path = ENV['PATH']
     puts "setup PATH: #{ENV['PATH']}"
     RubyInstaller::Runtime.disable_msys_apps
-    @old_path = ENV['PATH']
+    # Make sure that Ruby's bin is still in the PATH.
+    # Background: Bundler removes dups in the PATH, so that disable_msys_apps removes Ruby's bin when enable_msys_apps was called before bundler/setup (or in the parent process).
+    ENV['PATH'] = RubyInstaller::Runtime.msys2_installation.ruby_bin_dir + ";" + ENV['PATH']
   end
 
   def teardown
