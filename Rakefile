@@ -32,6 +32,10 @@ end
 
 desc "Run tests on the Ruby installation"
 task :test => libtest do
+  # Make sure that Ruby's bin is in the PATH.
+  # Background: Bundler removes dups in the PATH, so that disable_msys_apps removes Ruby's bin when enable_msys_apps was called before bundler/setup (or in the parent process).
+  ENV['PATH'] = RubyInstaller::Runtime.msys2_installation.ruby_bin_dir + ";" + ENV['PATH']
+
   sh "ruby -w -W2 -I. -e \"#{Dir["test/**/test_*.rb"].map{|f| "require '#{f}';"}.join}\" -- -v"
 
   # Re-test with simulated legacy Windows version.
